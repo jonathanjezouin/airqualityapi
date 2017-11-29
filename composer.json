@@ -1,11 +1,11 @@
 {
 	"name" : "ascii",
 	"authors" : [{
-			"name" : "",
-			"email" : ""
+			"name" : "toto",
+			"email" : "toto@exemple.fr"
 		}
 	],
-	"minimum-stability" : "dev",
+	"minimum-stability" : "stable",
 	"autoload" : {
 		"psr-4" : {
 			"AQIAPI\\" : "src/"
