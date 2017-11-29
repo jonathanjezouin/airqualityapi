@@ -9,6 +9,10 @@ Airqualityapi is a web app to retrieve air pollution informations to help you to
 - Clone : git clone  https://github.com/YourGitHub/airqualityapi.git
 - Set upstream remote : git remote add upstream https://github.com/JulienCarrier/airqualityapi.git (see [GitHub help](https://help.github.com/articles/syncing-a-fork/))
 
+## Test PHPUnit
+Lancer à la racine du projet : vendor/bin/phpunit ./test
+Ou : vendor/bin/phpunit [class de test particulière]
+
 ### License
 MIT
 
