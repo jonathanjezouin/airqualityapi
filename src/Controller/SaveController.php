@@ -1,29 +1,54 @@
 <?php
-use AQIAPI\Http\Response;
 
 namespace AQIAPI\Controller;
 
+use AQIAPI\Http\Response;
+use AQIAPI\Entity\User;
+use AQIAPI\Entity\Place;
+use AQIAPI\Entity\Aqi;
+
 class SaveController {
 
-
-    function getToto (): Response
+    function createUser (User $user): void
     {
-        $response = new Response;
+        // TODO
+    }
+
+    function selectUserBySignature ($signature): User
+    {
+        // TODO
+
+        $user = new User();
+
+        return $user;
+    }
+
+    function createPlace (Place $place): void
+    {
+        // TODO
+    }
+
+    function createAqi (Aqi $aqi): void
+    {
+        // TODO
+    }
+
+    function selectPlaceByUserAndName (): Place
+    {
+        // TODO
+
+        $place = new Place();
         
-        $response->addHeader(
-            "Content-Type",
-            "application/json;charset=utf8"
-        );
+        return $place;
+    }
+
+    function selectAllPlaceByUser (): array
+    {
+        // TODO
+
+        $place = new Place();
         
-        $foo = new stdClass;
-        $foo->message = "Hello";
-        
-        $response->setBody(json_encode($foo));
-        
-        return $response;
-        
-        
-        
+        return $place;
     }
   
 }

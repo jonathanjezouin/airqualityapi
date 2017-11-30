@@ -38,15 +38,13 @@ final class SaveControllerTest extends TestCase
     // TODO
     // Test de output (et d'input)
     // par la méthode commentée ci-dessous
-
     
-    
-     public function testOutput(): void
-     {
-         $sc = new SaveController();
-         $this->assertEquals(
-             "totu",
-             $sc->getToto()
-         );
-     }
+    // public function testOutput(): void
+    // {
+    //     $sc = new SaveController();
+    //     $this->assertEquals(
+    //         "totu",
+    //         $sc->getToto()
+    //     );
+    // }
 }
