@@ -1,7 +1,7 @@
 <?php
-use AQIAPI\Http\Response;
 
 namespace AQIAPI\Controller;
+use AQIAPI\Http\Response;
 
 class SaveController {
 
