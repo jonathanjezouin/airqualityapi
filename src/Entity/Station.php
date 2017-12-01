@@ -2,22 +2,17 @@
 
 namespace AQIAPI\Entity;
 
-class Place
+class Station
 {
     private $id;
     private $name;
-    private $userId;
+    private $index;
+    private $country;
     private $lat;
     private $lng;
 
-    public function __construct($id, $name, $userId, $lat, $lng)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->userId = $userId;
-        $this->lat = $lat;
-        $this->lng = $lng;
-    }
+
+
 
     public function getId()
     {
@@ -39,14 +34,24 @@ class Place
         $this->name = $name;
     }
 
-    public function getUserId()
+    public function getIndex()
     {
-        return $this->userId;
+        return $this->index;
     }
 
-    public function setUserId($userId)
+    public function setIndex($index)
     {
-        $this->userId = $userId;
+        $this->index = $index;
+    }
+
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    public function setCountry($country)
+    {
+        $this->country = $country;
     }
 
     public function getLat()
@@ -68,4 +73,9 @@ class Place
     {
         $this->lng = $lng;
     }
+
+
+
 }
+
+

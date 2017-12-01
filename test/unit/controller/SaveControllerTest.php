@@ -2,6 +2,10 @@
 
 use PHPUnit\Framework\TestCase;
 use AQIAPI\Controller\SaveController;
+use AQIAPI\Entity\User;
+use AQIAPI\Entity\Place;
+use AQIAPI\Entity\Aqi;
+
 
 // TODO
 // interface -> typeof
@@ -39,12 +43,25 @@ final class SaveControllerTest extends TestCase
     // Test de output (et d'input)
     // par la méthode commentée ci-dessous
     
-    // public function testOutput(): void
-    // {
-    //     $sc = new SaveController();
-    //     $this->assertEquals(
-    //         "totu",
-    //         $sc->getToto()
-    //     );
-    // }
+    public function testSelectPlaceById(): void
+    {
+        $sc = new SaveController();
+        $this->assertInstanceOf(
+            Place::class,
+            $sc->selectPlaceById(1)
+        );
+    }
+
+    public function testCreateUser(): void
+    {
+        $sc = new SaveController();
+        $user = new User();
+
+        $sc->createUser($user);
+
+        $this->assertNull(null);
+    }
+
+
+    
 }

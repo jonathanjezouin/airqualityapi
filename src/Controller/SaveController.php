@@ -1,32 +1,114 @@
 <?php
 
 namespace AQIAPI\Controller;
-use AQIAPI\Http\Response;
 
-use AQIAPI\Http\Response;
 use AQIAPI\Entity\User;
 use AQIAPI\Entity\Place;
 use AQIAPI\Entity\Aqi;
+use AQIAPI\Manager\Manager;
+
+use PDO;
 
 class SaveController {
 
     function createUser (User $user): void
     {
-        // TODO
+        $dbh = Manager::getPDO();
+
+        $sql = "INSERT INTO `user`(`userId`, `userSignature`) VALUES (:id, :signature)";
+
+        try {
+            $sth = $dbh->prepare($sql);
+            $sth->bindValue(":id", $user->getId());
+            $sth->bindValue(":signature", $user->getSignature());
+            $sth->execute();
+            echo "fin de la requete createUser";
+        
+        } catch (Throwable $e) {
+            echo "erreur requete createUser";
+            echo $e->getMessage();
+        }
     }
 
-    function selectUserBySignature ($signature): User
+    function selectUserBySignature ($sign): User
     {
-        // TODO
+        $dbh = Manager::getPDO();
+        
+        $sql = "SELECT * FROM `user`" . " WHERE `userSignature` = :param";
 
-        $user = new User();
+        try {
+            $sth = $dbh->prepare($sql);
+            $sth->bindValue(":param", $sign);
+            $sth->execute();
+            $results = $sth->fetchAll(PDO::FETCH_OBJ);
 
-        return $user;
+            if(count($results) > 0) {
+                header("Content-Type: application/json"); // déclare un header json
+                echo json_encode($results); // enrichi le json, ici $results vient d'une base
+                                            // et est donc déjà bien formaté
+                return new User((int) $results[0]->userId, $results[0]->userSignature);
+            }
+            throw new Exception("Pas de user trouvé");
+        
+        } catch (Throwable $e) {
+            echo "erreur requete selectUserBySignature";
+            echo $e->getMessage();
+        }
+    }
+
+    function createUserPlaceTransaction(User $user, Place $place)
+    {
+        $dbh = Manager::getPDO();
+
+        try {
+            if(! $dbh->inTransaction()) {
+                $dbh->beginTransaction();
+            }
+            $this->createUser($user);
+            $id = $dbh->lastInsertId();
+            $this->createPlace($place);
+            $dbh->commit(); // commit et ferme la transaction
+        } catch(Throwable $e) {
+            $dbh->rollback();
+            var_dump($e);
+        }
+        
+        // $sql = "INSERT INTO `user`" . "(`userId`, `userSignature`)" . " VALUES (:id, :signature)";
+
+        // try {
+        //     $sth = $dbh->prepare($sql);
+        //     $sth->bindValue(":id", $place->getId());
+        //     $sth->bindValue(":signature", $place->getSignature());
+        //     $sth->execute();
+        //     echo "fin de la requete createUser";
+        
+        // } catch (Throwable $e) {
+        //     echo "erreur requete createUser";
+        //     echo $e->getMessage();
+        // }
     }
 
     function createPlace (Place $place): void
     {
-        // TODO
+        $dbh = Manager::getPDO();
+        
+        $sql = "INSERT INTO `place`(`placeId`, `placeName`, `placeUserId`, `placeLat`, `placeLng`)"
+        . " VALUES (:id, :name, :userId, :lat, :lng)";
+
+        try {
+            $sth = $dbh->prepare($sql);
+            $sth->bindValue(":id", $place->getId());
+            $sth->bindValue(":name", $place->getName());
+            $sth->bindValue(":userId", $place->getUserId());
+            $sth->bindValue(":lat", $place->getLat());
+            $sth->bindValue(":lng", $place->getLng());
+            $sth->execute();
+            echo "fin de la requete createUser";
+        
+        } catch (Throwable $e) {
+            echo "erreur requete createUser";
+            echo $e->getMessage();
+        }
     }
 
     function createAqi (Aqi $aqi): void
@@ -34,7 +116,7 @@ class SaveController {
         // TODO
     }
 
-    function selectPlaceByUserAndName (): Place
+    function selectPlaceById ($placeId): Place
     {
         // TODO
 
@@ -47,9 +129,36 @@ class SaveController {
     {
         // TODO
 
-        $place = new Place();
+        $placePlaces = [];
         
-        return $place;
+        return $placePlaces;
+    }
+
+    function selectStationByCountry (): array
+    {
+        // TODO
+
+        $stations = [];
+        
+        return $stations;
+    }
+
+    function selectStationByCity (): array
+    {
+        // TODO
+
+        $stations = [];
+        
+        return $stations;
+    }
+
+    function selectAQIByStationByPeriod (): array
+    {
+        // TODO
+
+        $aqis = [];
+        
+        return $aqis;
     }
   
 }
